@@ -17,8 +17,8 @@ return require('packer').startup(function(use)
   -- use 'dracula/vim'
   use 'Mofiqul/dracula.nvim'
   use 'nvim-lua/plenary.nvim'
-  
-  use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  use {'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+  -- use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   use {
     'nvim-telescope/telescope.nvim', tag = '0.1.0',
     requires = { {'nvim-lua/plenary.nvim'} }
@@ -33,6 +33,8 @@ return require('packer').startup(function(use)
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
+    
+  use 'ThePrimeagen/harpoon'
   if packer_bootstrap then
     require('packer').sync()
   end
