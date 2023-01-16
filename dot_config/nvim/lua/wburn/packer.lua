@@ -1,41 +1,60 @@
-local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-    vim.cmd [[packadd packer.nvim]]
-    return true
-  end
-  return false
-end
+-- This file can be loaded by calling `lua require('plugins')` from your init.vim
 
-local packer_bootstrap = ensure_packer()
+-- Only required if you have packer configured as `opt`
+vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
-  -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
-  -- use 'dracula/vim'
-  use 'Mofiqul/dracula.nvim'
-  use 'nvim-lua/plenary.nvim'
-  use {'nvim-telescope/telescope-fzf-native.nvim', run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
-  -- use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-  use {
-    'nvim-telescope/telescope.nvim', tag = '0.1.0',
-    requires = { {'nvim-lua/plenary.nvim'} }
-    }
-  use 'kyazdani42/nvim-web-devicons'
+    -- Packer can manage itself
+    use 'wbthomason/packer.nvim'
 
-  use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
-  use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
-  use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
-  use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
-  use 'L3MON4D3/LuaSnip' -- Snippets plugin
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
-    
-  use 'ThePrimeagen/harpoon'
-  if packer_bootstrap then
-    require('packer').sync()
-  end
+    use {
+        'nvim-telescope/telescope.nvim', tag = '0.1.0',
+        -- or                            , branch = '0.1.x',
+        requires = { {'nvim-lua/plenary.nvim'} }
+    }
+
+    -- use({
+    --     'rose-pine/neovim',
+    --     as = 'rose-pine',
+    --     config = function()
+    --         vim.cmd('colorscheme rose-pine')
+    --     end
+    -- })
+    use({
+        'Mofiqul/dracula.nvim',
+        as = 'dracula',
+        config = function()
+            vim.cmd('colorscheme dracula')
+        end
+    })
+
+    use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
+    use('theprimeagen/harpoon')
+    use('mbbill/undotree')
+    use('tpope/vim-fugitive')
+
+    use {
+        'VonHeikemen/lsp-zero.nvim',
+        requires = {
+            -- LSP Support
+            {'neovim/nvim-lspconfig'},
+            {'williamboman/mason.nvim'},
+            {'williamboman/mason-lspconfig.nvim'},
+
+            -- Autocompletion
+            {'hrsh7th/nvim-cmp'},
+            {'hrsh7th/cmp-buffer'},
+            {'hrsh7th/cmp-path'},
+            {'saadparwaiz1/cmp_luasnip'},
+            {'hrsh7th/cmp-nvim-lsp'},
+            {'hrsh7th/cmp-nvim-lua'},
+
+            -- Snippets
+            {'L3MON4D3/LuaSnip'},
+            -- Snippet Collection (Optional)
+            {'rafamadriz/friendly-snippets'},
+        }
+ }
+ use('eandrju/cellular-automaton.nvim')
+ use('github/copilot.vim')
 end)

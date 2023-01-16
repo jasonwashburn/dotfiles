@@ -1,21 +1,35 @@
-local nnoremap = require("wburn.keymap").nnoremap
-local tnoremap = require("wburn.keymap").tnoremap
-nnoremap("<leader>d", "<cmd>Ex<CR>")
 
-nnoremap("<leader>ff", "<cmd>Telescope find_files<cr>")
-nnoremap("<leader>fg", "<cmd>Telescope live_grep<cr>")
-nnoremap("<leader>fb", "<cmd>Telescope buffers<cr>")
-nnoremap("<leader>fh", "<cmd>Telescope help_tags<cr>")
-nnoremap("<C-_>", "<cmd>Telescope current_buffer_fuzzy_find sorting_strategy=ascending prompt_position=top theme=ivy<cr>")
+vim.g.mapleader = " "
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
-nnoremap("<leader>a", function() require("harpoon.mark").add_file() end, silent)
-nnoremap("<leader>e", function() require("harpoon.ui").toggle_quick_menu() end, silent)
+vim.keymap.set("n", "J", "mzJ`z")
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
 
-nnoremap("<leader>j", function() require("harpoon.ui").nav_file(1) end, silent)
-nnoremap("<leader>k", function() require("harpoon.ui").nav_file(2) end, silent)
-nnoremap("<leader>l", function() require("harpoon.ui").nav_file(3) end, silent)
-nnoremap("<leader>;", function() require("harpoon.ui").nav_file(4) end, silent)
-nnoremap("<leader>t", function() require("harpoon.term").gotoTerminal(1) end, silent)
+-- greatest remap ever
+vim.keymap.set("x", "<leader>p", [["_dP]])
 
-tnoremap("<Esc>", "<C-\\><C-n>")
+-- next greatest remap ever : asbjornHaland
+vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
+vim.keymap.set("n", "<leader>Y", [["+Y]])
+
+vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
+
+vim.keymap.set("n", "Q", "<nop>")
+vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
+
+vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
+vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
+vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
+vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+
+vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>");
