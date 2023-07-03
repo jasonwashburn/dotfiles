@@ -74,7 +74,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git docker-compose zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(git docker-compose zsh-autosuggestions zsh-syntax-highlighting poetry terraform)
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 source $ZSH/oh-my-zsh.sh
 eval "$(starship init zsh)"
@@ -114,7 +114,7 @@ alias vim="nvim"
 
 export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init --path)"
-#eval "$(pyenv virtualenv-init -)"
+eval "$(pyenv virtualenv-init -)"
 
 # Created by `pipx` on 2022-02-23 01:50:10
 export PATH="$PATH:/home/wburn/.local/bin"
@@ -124,3 +124,11 @@ export PATH="$PATH:/home/wburn/.local/bin"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+eval "$(github-copilot-cli alias -- "$0")"
+
+# bun completions
+[ -s "/Users/wburn/.bun/_bun" ] && source "/Users/wburn/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
