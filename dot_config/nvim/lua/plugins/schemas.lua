@@ -23,6 +23,18 @@ return {
                 -- additional schemas (not in the catalog)
                 extra = {
                   {
+                    description = "UDS Schema",
+                    fileMatch = "uds-bundle.yaml",
+                    name = "uds-bundle.yaml",
+                    url = "https://raw.githubusercontent.com/defenseunicorns/uds-cli/main/uds.schema.json",
+                  },
+                  {
+                    description = "UDS Tasks Schema",
+                    fileMatch = "tasks.yaml",
+                    name = "tasks.yaml",
+                    url = "https://raw.githubusercontent.com/defenseunicorns/uds-cli/main/tasks.schema.json",
+                  },
+                  {
                     description = "Zarf Schema",
                     fileMatch = "zarf.yaml",
                     name = "zarf.yaml",
