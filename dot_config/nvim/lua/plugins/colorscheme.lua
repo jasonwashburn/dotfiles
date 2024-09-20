@@ -1,6 +1,5 @@
 return {
   { "Mofiqul/dracula.nvim" },
-  -- { "catppuccin/nvim" },
 
   -- Configure LazyVim to load catppuccin
   {
