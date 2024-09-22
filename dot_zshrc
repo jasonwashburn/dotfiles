@@ -20,6 +20,8 @@ alias ll="lsd -lag"
 alias tree="lsd --tree"
 alias k="kubectl"
 alias lg="lazygit"
+alias zshrc='${EDITOR:-vim} "${ZDOTDIR:-$HOME}"/.zshrc'
+alias zbench='for i in {1..10}; do /usr/bin/time zsh -lic exit; done'
 
 # Starship prompt
 eval "$(starship init zsh)"
@@ -40,8 +42,11 @@ export PATH=$PATH:$GOPATH/bin
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
+
+# Python related settings
 export PIPENV_VENV_IN_PROJECT=1
 export PIP_REQUIRE_VIRTUALENV=true
+
 
 # Cargo environment
 export PATH=$HOME/.cargo/bin:$PATH
