@@ -22,3 +22,11 @@ belak/zsh-utils path:editor
 
 # zsh-bench for benchmarking
 romkatv/zsh-bench kind:path
+
+
+# some additional plugins from Oh-My-Zsh
+getantidote/use-omz
+ohmyzsh/ohmyzsh path:lib
+ohmyzsh/ohmyzsh path:plugins/docker
+ohmyzsh/ohmyzsh path:plugins/git
+
