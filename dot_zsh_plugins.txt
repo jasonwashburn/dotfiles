@@ -1,0 +1,24 @@
+# Plugin completions
+zsh-users/zsh-completions path:src kind:fpath
+mattmc3/ez-compinit
+
+# Fast Syntax Highlighting (deferred for performance)
+zdharma-continuum/fast-syntax-highlighting kind:defer
+
+# Autosuggestions and history search (deferred)
+zsh-users/zsh-autosuggestions kind:defer
+zsh-users/zsh-history-substring-search kind:defer
+
+# Zephyr plugins for MacOS, color, and homebrew
+mattmc3/zephyr path:plugins/completion
+mattmc3/zephyr path:plugins/color
+mattmc3/zephyr path:plugins/homebrew
+mattmc3/zephyr path:plugins/macos
+
+# zsh-utils for history and utilities
+belak/zsh-utils path:history
+belak/zsh-utils path:utility
+belak/zsh-utils path:editor
+
+# zsh-bench for benchmarking
+romkatv/zsh-bench kind:path

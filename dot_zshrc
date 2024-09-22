@@ -1,4 +1,4 @@
-#Lazy-load antidote and generate the static load file only when needed
+# Antidote Lazy Load for Zsh Plugins
 zsh_plugins=${ZDOTDIR:-$HOME}/.zsh_plugins
 if [[ ! ${zsh_plugins}.zsh -nt ${zsh_plugins}.txt ]]; then
   (
@@ -8,56 +8,61 @@ if [[ ! ${zsh_plugins}.zsh -nt ${zsh_plugins}.txt ]]; then
 fi
 source ${zsh_plugins}.zsh
 
-# Enable backspace to work in zsh vi mode insert
+# Key bindings
 bindkey -v '^?' backward-delete-char
 
-# Enable zoxide
-eval "$(zoxide init zsh)"
-
-
-# If you come from bash you might have to change your $PATH.
-export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH=$HOME/.local/bin:$HOME/.local/bin/scripts:$PATH
-export PATH=$HOME/.cargo/bin:$PATH
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin
-
-eval "$(starship init zsh)"
-
-
-# Preferred editor for local and remote sessions
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='nvim'
-else
-  export EDITOR='nvim'
-fi
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
+# Aliases
+alias vi="nvim"
+alias vim="nvim"
 alias cat="bat"
 alias ls="lsd"
 alias ll="lsd -lag"
 alias tree="lsd --tree"
-alias vi="nvim"
-alias vim="nvim"
-alias lg="lazygit"
 alias k="kubectl"
+alias lg="lazygit"
 
+# Starship prompt
+eval "$(starship init zsh)"
 
+# Editors
+export EDITOR='nvim'
+
+# NVM setup (from first laptop)
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+
+# Go environment
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+
+# Pyenv setup
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 export PIPENV_VENV_IN_PROJECT=1
-
 export PIP_REQUIRE_VIRTUALENV=true
 
-# Set up fzf key bindings and fuzzy completion
+# Cargo environment
+export PATH=$HOME/.cargo/bin:$PATH
+. "$HOME/.cargo/env"
+
+# Additional paths
+export PATH=$HOME/bin:/usr/local/bin:$HOME/.local/bin:$HOME/.local/bin/scripts:$PATH
+
+# FZF setup
 source <(fzf --zsh)
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-. "$HOME/.cargo/env"
+# Zoxide setup
+eval "$(zoxide init zsh)"
 
+# Thefuck setup
 eval $(thefuck --alias)
+
+# Tmux auto-start if not already inside
+if [[ -z "$TMUX" ]] && [[ -n "$PS1" ]] && command -v tmux &>/dev/null; then
+  if [[ ! "$TERM" =~ "screen" ]]; then
+    tmux
+  fi
+fi
