@@ -21,6 +21,7 @@ return {
               new_config.settings.yaml.schemas or {},
               require("schemastore").yaml.schemas({
                 -- additional schemas (not in the catalog)
+                ignore = { "Ansible Tasks File", "Deployer Recipe" },
                 extra = {
                   {
                     description = "UDS Schema",
@@ -30,7 +31,8 @@ return {
                   },
                   {
                     description = "UDS Tasks Schema",
-                    fileMatch = "tasks.yaml",
+                    -- fileMatch = "tasks.yaml",
+                    fileMatch = { "/**/tasks/*.yaml", "tasks.yaml" },
                     name = "tasks.yaml",
                     url = "https://raw.githubusercontent.com/defenseunicorns/uds-cli/main/tasks.schema.json",
                   },
