@@ -17,6 +17,14 @@ wezterm.on("gui-startup", function(cmd)
 	window:gui_window():maximize()
 end)
 
+-- Disable the stupid terminal bell
+config.audible_bell = "Disabled"
+config.visual_bell = {
+	fade_in_duration_ms = 75,
+	fade_out_duration_ms = 75,
+	target = "CursorColor",
+}
+
 -- Changing the color scheme:
 config.color_scheme = "Dracula (Official)"
 config.tab_bar_at_bottom = true
