@@ -1,0 +1,15 @@
+plugins:
+  reconcile-package:
+    shortCut: r
+    scopes:
+      - pkg
+      - package
+      - packages
+      - packages.uds.dev
+    description: Force reconcile a package
+    command: bash
+    background: false
+    args:
+      - -c
+      - >-
+        kubectl patch pkg --context $CONTEXT -n $NAMESPACE $NAME --subresource=status --type=json  -p='[{"op": "remove", "path": "/status"}]'
