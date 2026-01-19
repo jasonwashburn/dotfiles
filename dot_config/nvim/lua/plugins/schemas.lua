@@ -63,17 +63,12 @@ return {
               },
             },
           },
+          on_init = function(client)
+            -- Since formatting is disabled by default in yaml-language-server,
+            -- manually set the capability to true
+            client.server_capabilities.documentFormattingProvider = true
+          end,
         },
-      },
-      setup = {
-        yamlls = function()
-          -- Neovim < 0.10 does not have dynamic registration for formatting
-          if vim.fn.has("nvim-0.10") == 0 then
-            LazyVim.lsp.on_attach(function(client, _)
-              client.server_capabilities.documentFormattingProvider = true
-            end, "yamlls")
-          end
-        end,
       },
     },
   },
