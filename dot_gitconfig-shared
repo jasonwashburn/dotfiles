@@ -42,6 +42,7 @@
 # a matter of taste (uncomment if you dare)
 
 [core]
+        excludesfile = ~/.gitignore_global
         # fsmonitor = true
         # untrackedCache = true
 [merge]
