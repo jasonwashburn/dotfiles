@@ -112,9 +112,6 @@ eval "$(zoxide init zsh)"
 # Thefuck setup
 eval $(thefuck --alias)
 
-# Copilot cli setup
-eval "$(gh copilot alias -- zsh)"
-
 export MARU_AUTH="{\"raw.githubusercontent.com\": \"$(gh auth token)\"}"
 
 # Added by Windsurf
