@@ -7,17 +7,19 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
-    opts = {
-      servers = {
-        terraformls = {
-          settings = {
-            ["terraform-ls"] = {
-              terraformExecPath = "tofu",
-            },
+    opts = function(_, opts)
+      -- to make this work, add a terraform softlink in the directory below
+      vim.env.PATH = vim.fn.expand("~/.local/nvim-bin") .. ":" .. vim.env.PATH
+      opts.servers = opts.servers or {}
+      opts.servers.terraformls = {
+        settings = {
+          ["terraform-ls"] = {
+            terraformExecPath = "tofu",
           },
         },
-      },
-    },
+      }
+      return opts
+    end,
   },
   {
     "stevearc/conform.nvim",
