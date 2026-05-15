@@ -13,7 +13,7 @@ return {
       vim.api.nvim_create_autocmd("ColorScheme", {
         pattern = "dracula",
         callback = function()
-          vim.api.nvim_set_hl(0, "LspInlayHint", { fg = "#6272a4", italic = true })
+          vim.api.nvim_set_hl(0, "ComplHint", { fg = "#7b8fb8", italic = true })
         end,
       })
       require("dracula").setup({})
