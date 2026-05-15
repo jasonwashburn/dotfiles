@@ -1,30 +1,30 @@
 [core]
     pager = delta
-
 [interactive]
     diffFilter = delta --color-only
-
 [delta]
     features = side-by-side line-numbers decorations
     navigate = true
     dark = true
     syntax-theme = Dracula
-    plus-style = syntax "#003800"
-    minus-style = syntax "#3f0001"
+    plus-style = syntax "#1f4d1f"
+    minus-style = syntax "#4d1f1f"
+    plus-emph-style = syntax "#2d6e2d"
+    minus-emph-style = syntax "#6e2828"
     true-color = always
-
+    file-modified-label = "~"
+    file-added-label = "+"
+    file-removed-label = "-"
+    file-renamed-label = "→"
 [delta "decorations"]
-    commit-decoration-style = bold yellow box ul
-    file-style = bold yellow ul
+    commit-decoration-style = bold "#bd93f9" box ul
+    file-style = bold "#ff79c6" ul
     file-decoration-style = none
     hunk-header-decoration-style = cyan box ul
-
 [delta "line-numbers"]
-    line-numbers-left-style = cyan
-    line-numbers-right-style = cyan
-    line-numbers-minus-style = 124
-    line-numbers-plus-style = 28
-
+    line-numbers-left-style = "#6272a4"
+    line-numbers-right-style = "#6272a4"
+    line-numbers-minus-style = "#8b3a3a"
+    line-numbers-plus-style = "#3a7a3a"
 [merge]
     conflictStyle = zdiff3
-
