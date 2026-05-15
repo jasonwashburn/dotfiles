@@ -1,3 +1,76 @@
 git:
   pagers:
     - pager: delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}" --features=line-numbers,decorations
+
+  log:
+    order: "topo-order"
+    showGraph: "always" # or 'when-maximised' if you find it noisy
+    showWholeGraph: true
+gui:
+  nerdFontsVersion: "3"
+  showFileTree: true # toggle with `~` anytime
+  showFileIcons: true
+
+  # DRACULA
+  theme:
+    activeBorderColor:
+      - "#FF79C6"
+      - bold
+    inactiveBorderColor:
+      - "#BD93F9"
+
+    searchingActiveBorderColor:
+      - "#8BE9FD"
+      - bold
+
+    optionsTextColor:
+      - "#6272A4"
+
+    selectedLineBgColor:
+      - "#6272A4"
+
+    inactiveViewSelectedLineBgColor:
+      - bold
+
+    cherryPickedCommitFgColor:
+      - "#6272A4"
+
+    cherryPickedCommitBgColor:
+      - "#8BE9FD"
+
+    markedBaseCommitFgColor:
+      - "#8BE9FD"
+
+    markedBaseCommitBgColor:
+      - "#F1FA8C"
+
+    unstagedChangesColor:
+      - "#FF5555"
+
+    defaultFgColor:
+      - "#F8F8F2"
+
+customCommands:
+  # Conventional commit with a type picker
+  - key: "C"
+    context: "files"
+    description: "Conventional commit"
+    prompts:
+      - type: "menu"
+        title: "Type of change"
+        key: "Type"
+        options:
+          - { name: "feat", value: "feat" }
+          - { name: "fix", value: "fix" }
+          - { name: "docs", value: "docs" }
+          - { name: "refactor", value: "refactor" }
+          - { name: "chore", value: "chore" }
+          - { name: "test", value: "test" }
+      - type: "input"
+        title: "Scope (optional)"
+        key: "Scope"
+      - type: "input"
+        title: "Message"
+        key: "Message"
+    command: 'git commit -m "{{.Form.Type}}{{if .Form.Scope}}({{.Form.Scope}}){{end}}: {{.Form.Message}}"'
+    loadingText: "Committing..."
