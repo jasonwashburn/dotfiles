@@ -10,7 +10,7 @@
         defaultBranch = main
 [diff]
         algorithm = histogram
-        colorMoved = plain
+        colorMoved = default
         mnemonicPrefix = true
         renames = true
 [push]

@@ -3,9 +3,8 @@ git:
     - pager: delta --dark --paging=never --line-numbers --hyperlinks --hyperlinks-file-link-format="lazygit-edit://{path}:{line}" --features=line-numbers,decorations
 
   log:
-    order: "topo-order"
-    showGraph: "always" # or 'when-maximised' if you find it noisy
-    showWholeGraph: true
+    showGraph: "when-maximised"
+
 gui:
   nerdFontsVersion: "3"
   showFileTree: true # toggle with `~` anytime
