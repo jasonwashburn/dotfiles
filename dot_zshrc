@@ -1,25 +1,54 @@
+# For Profiling zsh startup 
+# TOP of .zshrc
+# zmodload zsh/zprof
 
-###  Start of oh-my-zsh configuration
+# Replacement for oh-my-zsh
+# Plugins (direct source, no framework)
+# Install/update with:
+#   git clone https://github.com/zsh-users/zsh-syntax-highlighting ~/.zsh/zsh-syntax-highlighting
+#   git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# Path to your Oh My Zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+# Completions (cached - full rebuild once per day)
+autoload -Uz compinit
+if [[ -n ~/.zcompdump(#qNmh-24) ]]; then
+  compinit -C
+else
+  compinit
+fi
 
-ZSH_THEME="robbyrussell"
+# Git helpers
+function git_current_branch() { git rev-parse --abbrev-ref HEAD 2>/dev/null }
+function git_main_branch() {
+  command git rev-parse --verify refs/heads/main &>/dev/null && echo main || echo master
+}
 
-zstyle ':omz:update' mode auto      # update automatically without asking
-
-# Uncomment the following line to change how often to auto-update (in days).
-zstyle ':omz:update' frequency 7
-
-# Uncomment the following line to enable command auto-correction.
-#ENABLE_CORRECTION="true"
-
-plugins=(git docker git terraform zsh-syntax-highlighting zsh-autosuggestions)
-
-source $ZSH/oh-my-zsh.sh
-
-### End of oh-my-zsh configuration
-
+# Git aliases
+alias g='git'
+alias gst='git status'
+alias gd='git diff'
+alias gds='git diff --staged'
+alias ga='git add'
+alias gaa='git add --all'
+alias gp='git push'
+alias gpf='git push --force-with-lease --force-if-includes'
+alias gpsup='git push --set-upstream origin $(git_current_branch)'
+alias gl='git pull'
+alias gco='git checkout'
+alias gcb='git checkout -b'
+alias gcm='git checkout $(git_main_branch)'
+alias gc='git commit --verbose'
+alias gcmsg='git commit --message'
+alias glog='git log --oneline --decorate --graph'
+alias gloga='git log --oneline --decorate --graph --all'
+alias grb='git rebase'
+alias grbi='git rebase --interactive'
+alias grbc='git rebase --continue'
+alias grba='git rebase --abort'
+alias gsta='git stash push'
+alias gstp='git stash pop'
+alias gstl='git stash list'
 
 # Starship prompt
 eval "$(starship init zsh)"
@@ -42,54 +71,19 @@ alias k="kubectl"
 alias lg="lazygit"
 alias zshrc='${EDITOR:-vim} "${ZDOTDIR:-$HOME}"/.zshrc'
 alias zbench='for i in {1..10}; do /usr/bin/time zsh -lic exit; done'
-
-alias licensereplace='rg -l --hidden --no-ignore "^// SPDX-License-Identifier:" | xargs perl -i -pe '\''s|^// SPDX-License-Identifier:.*|// SPDX-License-Identifier: LicenseRef-Defense-Unicorns-Commercial|'\'''
-
-alias asso="aws sso login"
-alias kdummy="kubectx -u"
 alias koff="kubectx -u"
-alias dougsay='cowsay -f ~/.cows/doug.cow'
-
-
-# function to set AWS profile, sso login and clear the profile
-function aws_profiles() {
-  profiles=$(aws --no-cli-pager configure list-profiles 2> /dev/null)
-  if [[ -z "$profiles" ]]; then
-    echo "No AWS profiles found in '$HOME/.aws/config, check if ~/.aws/config exists and properly configured.'"
-    return 1
-  else
-    echo $profiles
-  fi
-}
-
-function asp() {
-  available_profiles=$(aws_profiles)
-  selected_profile=$(echo "$available_profiles" | fzf --height 10 --border --prompt="Select AWS Profile: " --select-1 --query="$1")
-  if [[ -z "$selected_profile" ]]; then
-    unset AWS_DEFAULT_PROFILE AWS_PROFILE
-    echo "No profile selected, AWS profile cleared."
-    return
-  fi
-
-  echo "$available_profiles" | grep -qw "$selected_profile"
-  if [[ $? -ne 0 ]]; then
-    echo "Profile '$selected_profile' not configured in '$HOME/.aws/config'.\n"
-    echo "Available profiles: \n$available_profiles\n"
-    return 1
-  else
-    echo "Selected profile: $selected_profile"
-    export AWS_DEFAULT_PROFILE="$selected_profile" AWS_PROFILE="$selected_profile"
-  fi
-}
-
 
 # Editors
 export EDITOR='nvim'
 
-# NVM setup
+# NVM setup (lazy-loaded)
 export NVM_DIR="$HOME/.nvm"
-[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
-[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"
+nvm() {
+  unset -f nvm
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+  nvm "$@"
+}
 
 # Go environment
 export GOPATH=$HOME/go
@@ -161,16 +155,41 @@ source <(fzf --zsh)
 # Zoxide setup
 eval "$(zoxide init zsh)"
 
-# Thefuck setup
-eval $(thefuck --alias)
+# Worktrunk
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
 
-export MARU_AUTH="{\"raw.githubusercontent.com\": \"$(gh auth token)\"}"
+# functions to set AWS profile, sso login and clear the profile
+alias asso="aws sso login"
 
-# Added by Windsurf
-export PATH="/Users/jason/.codeium/windsurf/bin:$PATH"
+function aws_profiles() {
+  profiles=$(aws --no-cli-pager configure list-profiles 2> /dev/null)
+  if [[ -z "$profiles" ]]; then
+    echo "No AWS profiles found in '$HOME/.aws/config, check if ~/.aws/config exists and properly configured.'"
+    return 1
+  else
+    echo $profiles
+  fi
+}
 
-# Rapidfort
-export PATH="/Users/jason/.local/bin/rapidfort:$PATH"
+function asp() {
+  available_profiles=$(aws_profiles)
+  selected_profile=$(echo "$available_profiles" | fzf --height 10 --border --prompt="Select AWS Profile: " --select-1 --query="$1")
+  if [[ -z "$selected_profile" ]]; then
+    unset AWS_DEFAULT_PROFILE AWS_PROFILE
+    echo "No profile selected, AWS profile cleared."
+    return
+  fi
+
+  echo "$available_profiles" | grep -qw "$selected_profile"
+  if [[ $? -ne 0 ]]; then
+    echo "Profile '$selected_profile' not configured in '$HOME/.aws/config'.\n"
+    echo "Available profiles: \n$available_profiles\n"
+    return 1
+  else
+    echo "Selected profile: $selected_profile"
+    export AWS_DEFAULT_PROFILE="$selected_profile" AWS_PROFILE="$selected_profile"
+  fi
+}
 
 # Enables certinfo helper from Charles
 function certinfo {
@@ -253,14 +272,29 @@ function certinfo {
   fi
 }
 
-if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
+### Work stuff
+# touch ~/.add-work-zsh-configs to enable loading on work computer
+[[ -f ~/.add-work-zsh-configs ]] && {
 
-udsenv() {
-  local version="$1"
-  local bin_dir="$HOME/.local/bin"
-  local filename="uds-cli-${version}"
-  local url="https://github.com/defenseunicorns/uds-cli/releases/download/${version}/uds-cli_${version}_Darwin_arm64"
+  # Maru Auth for maru and UDS tasks
+  export MARU_AUTH="{\"raw.githubusercontent.com\": \"$(gh auth token)\"}"
 
-  curl -fsSL "$url" -o "${bin_dir}/${filename}" && chmod +x "${bin_dir}/${filename}"
-  echo "✓ Downloaded uds-cli ${version} to ${bin_dir}/${filename}"
+  # Rapidfort
+  export PATH="/Users/jason/.local/bin/rapidfort:$PATH"
+  alias dougsay='cowsay -f ~/.cows/doug.cow'
+
+  # udsenv to install multiple versions of uds for testing
+  udsenv() {
+    local version="$1"
+    local bin_dir="$HOME/.local/bin"
+    local filename="uds-cli-${version}"
+    local url="https://github.com/defenseunicorns/uds-cli/releases/download/${version}/uds-cli_${version}_Darwin_arm64"
+
+    curl -fsSL "$url" -o "${bin_dir}/${filename}" && chmod +x "${bin_dir}/${filename}"
+    echo "✓ Downloaded uds-cli ${version} to ${bin_dir}/${filename}"
+  }
 }
+
+# For Profiling zsh startup 
+# BOTTOM of .zshrc
+# zprof
