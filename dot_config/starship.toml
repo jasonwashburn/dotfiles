@@ -8,7 +8,7 @@ $character"""
 
 [aws]
 format = 'on [$symbol($profile )(\($region\) )]($style)'
-symbol = '☁️  '
+symbol = '󰸏 '
  
 [aws.profile_aliases]
 # Add your real profile-name → short-label mappings here
@@ -34,6 +34,9 @@ style = 'blue bold'
 min_time = 2_000
 style = 'bold #f1fa8c'
 format = 'took [$duration]($style) '
+
+[gcloud]
+symbol = '󰊭 '
 
 [git_branch]
 truncation_length = 24
