@@ -3,3 +3,9 @@ font-size = 15
 window-height = 1000
 window-width = 1000
 macos-titlebar-style = "tabs"
+
+
+quick-terminal-position = center
+quick-terminal-animation-duration = 0
+keybind = global:super+`=toggle_quick_terminal
+quick-terminal-size = 70%,70%
