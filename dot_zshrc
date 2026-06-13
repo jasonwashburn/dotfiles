@@ -72,6 +72,7 @@ alias lg="lazygit"
 alias zshrc='${EDITOR:-vim} "${ZDOTDIR:-$HOME}"/.zshrc'
 alias zbench='for i in {1..10}; do /usr/bin/time zsh -lic exit; done'
 alias koff="kubectx -u"
+alias t='tmux new-session -A -s main' #-A attaches to an existing session named main if it exists, creates it if it doesn't.
 
 # Editors
 export EDITOR='nvim'
