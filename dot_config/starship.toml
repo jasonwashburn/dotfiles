@@ -61,3 +61,19 @@ symbol = '☸ '
 style = 'bold cyan'
 format = '[$symbol$context]($style) '
 
+[[kubernetes.contexts]]
+context_pattern = ".*uds-eks-prod.*"
+style = "bold red"
+symbol = "🚨"
+context_alias = "Registry Production Cluster"
+
+[[kubernetes.contexts]]
+context_pattern = ".*uds-eks-staging.*"
+style = "bold yellow"
+symbol = "⚠️ "
+context_alias = "Registry Staging Cluster"
+
+[[kubernetes.contexts]]
+context_pattern = ".*uds-eks-dev.*"
+style = "bold green"
+context_alias = "Registry Dev Cluster"
