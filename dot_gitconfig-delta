@@ -3,6 +3,7 @@
 [interactive]
     diffFilter = delta --color-only
 [delta]
+    tabs = 2
     features = side-by-side line-numbers decorations
     navigate = true
     dark = true
