@@ -49,6 +49,8 @@ alias grba='git rebase --abort'
 alias gsta='git stash push'
 alias gstp='git stash pop'
 alias gstl='git stash list'
+alias gsw='git switch'
+alias gswm='git switch $(git_main_branch)'
 
 # Starship prompt
 eval "$(starship init zsh)"
