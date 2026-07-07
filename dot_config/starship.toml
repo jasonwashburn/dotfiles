@@ -55,6 +55,9 @@ staged = '+${count}'
 renamed = '»${count}'
 deleted = '✘${count}'
 
+[hostname]
+aliases = { "lima-ai-sandbox" = "🤖 sandbox" }
+
 [kubernetes]
 disabled = false
 symbol = '☸ '
