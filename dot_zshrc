@@ -10,6 +10,10 @@
 source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+# Set Zsh options
+# set Interactive Commaents
+setopt INTERACTIVE_COMMENTS
+
 # Completions (cached - full rebuild once per day)
 autoload -Uz compinit
 if [[ -n ~/.zcompdump(#qNmh-24) ]]; then
