@@ -156,6 +156,12 @@ source <(fzf --zsh)
 # Zoxide setup
 eval "$(zoxide init zsh)"
 
+# Atuin setup
+eval "$(atuin init zsh)"
+
+# Mise setup
+eval "$(mise activate zsh)"
+
 # Worktrunk
 if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
 
