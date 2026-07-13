@@ -1,0 +1,9 @@
+onboarding = false
+
+[theme]
+name = "dracula"
+auto_switch = false
+
+[keys]
+prefix = "ctrl+a"
+last_pane = "prefix+tab"
