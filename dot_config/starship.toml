@@ -61,7 +61,7 @@ aliases = { "lima-ai-sandbox" = "🤖 sandbox" }
 [kubernetes]
 disabled = false
 symbol = '☸ '
-style = 'bold cyan'
+style = 'bold yellow'
 format = '[$symbol$context]($style) '
 
 [[kubernetes.contexts]]
