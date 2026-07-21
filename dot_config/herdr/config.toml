@@ -7,3 +7,9 @@ auto_switch = false
 [keys]
 prefix = "ctrl+a"
 last_pane = "prefix+tab"
+
+[ui]
+right_click_passthrough_modifier = "ctrl"
+
+[ui.sound]
+enabled = false
