@@ -1,0 +1,8 @@
+[tools]
+go = "latest"
+golangci-lint = "latest"
+node = "26"
+uv = "latest"
+
+[settings]
+go.set_gobin = false
