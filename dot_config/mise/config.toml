@@ -3,6 +3,10 @@ go = "latest"
 golangci-lint = "latest"
 node = "26"
 uv = "latest"
+"github:defenseunicorns/maru-runner" = { version = "latest", bin = "maru" }
+"aqua:google/addlicense" = "latest"
+kubectl = "latest"
 
 [settings]
 go.set_gobin = false
+
