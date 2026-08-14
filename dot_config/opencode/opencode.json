@@ -39,5 +39,39 @@
     "todowrite": "allow",
     "external_directory": "ask",
     "doom_loop": "ask"
-  }
+  },
+  "agent": {
+    "build": {
+      "model": "openai/gpt-5.6-sol",
+      "reasoningEffort": "medium",
+      "textVerbosity": "medium",
+      "reasoningSummary": "concise"
+    },
+    "plan": {
+      "model": "openai/gpt-5.6-sol",
+      "reasoningEffort": "high",
+      "textVerbosity": "medium",
+      "reasoningSummary": "detailed"
+    },
+    "general": {
+      "model": "openai/gpt-5.6-terra",
+      "reasoningEffort": "medium",
+      "textVerbosity": "low",
+      "reasoningSummary": "concise"
+    },
+    "explore": {
+      "model": "openai/gpt-5.6-luna",
+      "reasoningEffort": "low",
+      "textVerbosity": "low"
+    },
+    "scout": {
+      "model": "openai/gpt-5.6-luna",
+      "reasoningEffort": "high",
+      "textVerbosity": "low",
+      "reasoningSummary": "concise"
+    }
+  },
+  "plugin": [
+    "./plugins/crit.ts"
+  ]
 }
